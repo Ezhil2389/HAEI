@@ -1,0 +1,255 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    
+    /* Hyundai Corporate Colors */
+    --hyundai-blue: 212 100% 19%;
+    --hyundai-light-sand: 30 20% 96%;
+    --hyundai-sand: 32 28% 86%;
+    --active-blue: 199 100% 45%;
+    --sky-blue: 199 88% 87%;
+    --hyundai-gold: 36 65% 58%;
+    --active-red: 0 71% 45%;
+
+    --primary: 212 100% 19%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 32 28% 86%;
+    --secondary-foreground: 212 100% 19%;
+    --muted: 30 20% 96%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 199 100% 45%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 71% 45%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 30 20% 90%;
+    --input: 30 20% 90%;
+    --ring: 212 100% 19%;
+    
+    --radius: 1.5rem;
+  }
+  
+  .dark {
+    --background: 212 25% 10%;
+    --foreground: 0 0% 98%;
+    --card: 212 25% 15%;
+    --card-foreground: 0 0% 98%;
+    --popover: 212 25% 15%;
+    --popover-foreground: 0 0% 98%;
+    
+    --primary: 30 20% 96%;
+    --primary-foreground: 212 100% 19%;
+    --secondary: 212 100% 19%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 212 25% 25%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 199 100% 45%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 71% 45%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 212 25% 25%;
+    --input: 212 25% 25%;
+    --ring: 30 20% 96%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    @apply overflow-x-hidden;
+  }
+  
+  body {
+    @apply bg-background text-foreground overflow-x-hidden;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+    @apply font-semibold tracking-tight;
+  }
+  
+  h1 {
+    @apply text-5xl md:text-7xl lg:text-8xl leading-tight;
+  }
+  
+  h2 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl lg:text-4xl;
+  }
+  
+  h4 {
+    @apply text-xl md:text-2xl lg:text-3xl;
+  }
+  
+  p {
+    @apply leading-relaxed;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-md bg-white/80 dark:bg-black/30;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply px-6 sm:px-8 lg:px-12 mx-auto max-w-[1400px];
+  }
+  
+  .btn-primary {
+    @apply relative overflow-hidden bg-primary text-white px-8 py-3.5 rounded-full 
+      transition-all duration-300 transform hover:scale-105 hover:shadow-lg
+      before:absolute before:inset-0 before:bg-white/20 before:translate-x-[-100%] 
+      before:hover:translate-x-0 before:transition-transform before:duration-300
+      inline-flex items-center justify-center font-medium shadow-md
+      border border-transparent hover:border-white/10;
+  }
+  
+  .btn-outline {
+    @apply relative overflow-hidden border-2 border-primary text-primary 
+      hover:text-white px-8 py-3.5 rounded-full transition-all duration-300 
+      transform hover:scale-105 hover:shadow-lg
+      before:absolute before:inset-0 before:bg-primary before:translate-x-[-100%] 
+      before:hover:translate-x-0 before:transition-transform before:duration-300 before:-z-10
+      inline-flex items-center justify-center font-medium backdrop-blur-sm
+      hover:border-primary/80 shadow-sm;
+  }
+  
+  .btn-outline-hero {
+    @apply relative overflow-hidden border-2 border-white text-white
+      hover:text-white px-8 py-3.5 rounded-full transition-all duration-300 
+      transform hover:scale-105 hover:shadow-lg
+      before:absolute before:inset-0 before:bg-accent before:translate-x-[-100%] 
+      before:hover:translate-x-0 before:transition-transform before:duration-300 before:-z-10
+      inline-flex items-center justify-center font-medium backdrop-blur-sm
+      shadow-md;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-500 hover:shadow-2xl hover:-translate-y-2
+      hover:shadow-primary/20;
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary;
+  }
+  
+  .bg-gradient {
+    @apply bg-gradient-to-br from-primary via-accent to-primary;
+  }
+}
+
+/* Custom Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 0.08; }
+  50% { opacity: 0.15; }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 1s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.5s ease-out;
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 3s ease-in-out infinite;
+}
+
+/* Scroll-based animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Glassmorphism */
+.glass {
+  @apply backdrop-blur-lg bg-white/30 dark:bg-black/30 border border-white/20;
+}
+
+.glass-dark {
+  @apply backdrop-blur-lg bg-black/30 border border-white/10;
+}
+
+/* Modern Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/20 rounded-full hover:bg-primary/40 transition-colors;
+}

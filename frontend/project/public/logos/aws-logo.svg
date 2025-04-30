@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" fill="none">
+  <path d="M100 25L115 40H85L100 25Z" fill="#FF9900"/>
+  <path d="M100 75L115 60H85L100 75Z" fill="#FF9900"/>
+  <path d="M75 50L90 65V35L75 50Z" fill="#FF9900"/>
+  <path d="M125 50L110 65V35L125 50Z" fill="#FF9900"/>
+  <path d="M55 55L65 60V50L55 55Z" fill="#FF9900"/>
+  <path d="M145 55L135 60V50L145 55Z" fill="#FF9900"/>
+  <path d="M100 35V65" stroke="#FF9900" stroke-width="3"/>
+  <path d="M85 50H115" stroke="#FF9900" stroke-width="3"/>
+</svg> 
