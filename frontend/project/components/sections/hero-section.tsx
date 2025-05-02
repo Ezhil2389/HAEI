@@ -130,88 +130,85 @@ export default function HeroSection({
 
       {/* Content */}
       <div className="container-custom relative z-10 flex items-center">
-        <AnimatePresence mode="wait">
-          <motion.div 
-            key={`slide-content-${currentSlide}`}
-            className={cn(
-              "max-w-3xl flex flex-col gap-8", 
-              textPosition === "left" ? "text-left justify-start" : textPositionClasses[textPosition]
-            )}
-            style={{ scale: springScale }}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.8 }}
-          >
-            {/* Decorative element */}
+        <div className="w-full flex justify-start -ml-12 sm:-ml-16 md:-ml-20">
+          <AnimatePresence mode="wait">
             <motion.div 
-              className={cn("w-20 h-1.5 rounded-full bg-white mb-4", 
-                textPosition === 'center' ? 'mx-auto' : textPosition === 'right' ? 'ml-auto' : ''
-              )}
-              initial={{ width: 0 }}
-              animate={{ width: 80 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            />
-            
-            <div className="overflow-hidden">
-              {titleWords.map((word, index) => (
-                <motion.span
-                  key={index}
-                  className="inline-block mr-4 text-white font-bold text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight drop-shadow-md"
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ 
-                    duration: 0.8,
-                    delay: index * 0.1,
-                    ease: [0.43, 0.13, 0.23, 0.96]
-                  }}
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </div>
-            
-            <motion.p 
-              className="text-xl md:text-2xl lg:text-3xl text-white font-light leading-relaxed max-w-3xl drop-shadow-md"
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
+              key={`slide-content-${currentSlide}`}
+              className="max-w-3xl flex flex-col gap-8 text-left justify-start"
+              style={{ scale: springScale }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -30 }}
+              transition={{ duration: 0.8 }}
             >
-              {slide.subtitle}
-            </motion.p>
-            
-            <motion.div 
-              className="flex flex-col sm:flex-row gap-6 mt-6"
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-            >
-              <Link 
-                href={slide.primaryCta.href} 
-                className="btn-primary group relative overflow-hidden"
-              >
-                <span className="relative z-10 flex items-center">
-                  {slide.primaryCta.text}
-                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                </span>
-              </Link>
+              {/* Decorative element */}
+              <motion.div 
+                className="w-20 h-1.5 rounded-full bg-white mb-4"
+                initial={{ width: 0 }}
+                animate={{ width: 80 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              />
               
-              {slide.secondaryCta && (
+              <div className="overflow-hidden">
+                {titleWords.map((word, index) => (
+                  <motion.span
+                    key={index}
+                    className="inline-block mr-4 text-white font-bold text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight drop-shadow-md"
+                    initial={{ y: 100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ 
+                      duration: 0.8,
+                      delay: index * 0.1,
+                      ease: [0.43, 0.13, 0.23, 0.96]
+                    }}
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+              </div>
+              
+              <motion.p 
+                className="text-xl md:text-2xl lg:text-3xl text-white font-light leading-relaxed max-w-3xl drop-shadow-md"
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+              >
+                {slide.subtitle}
+              </motion.p>
+              
+              <motion.div 
+                className="flex flex-col sm:flex-row gap-6 mt-6"
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+              >
                 <Link 
-                  href={slide.secondaryCta.href} 
-                  className="btn-outline-hero group relative overflow-hidden"
+                  href={slide.primaryCta.href} 
+                  className="btn-primary group relative overflow-hidden"
                 >
-                  <span className="relative z-10">
-                    {slide.secondaryCta.text}
+                  <span className="relative z-10 flex items-center">
+                    {slide.primaryCta.text}
+                    <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </span>
                 </Link>
-              )}
+                
+                {slide.secondaryCta && (
+                  <Link 
+                    href={slide.secondaryCta.href} 
+                    className="btn-outline-hero group relative overflow-hidden"
+                  >
+                    <span className="relative z-10">
+                      {slide.secondaryCta.text}
+                    </span>
+                  </Link>
+                )}
+              </motion.div>
             </motion.div>
-          </motion.div>
-        </AnimatePresence>
-        
-        {/* Carousel Controls - REMOVED */}
-        
+          </AnimatePresence>
+          
+          {/* Carousel Controls - REMOVED */}
+          
+        </div>
       </div>
 
       {/* Scroll Indicator */}
