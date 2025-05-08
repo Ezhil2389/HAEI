@@ -17,6 +17,7 @@ const config: Config = {
         'sky-blue': 'hsl(var(--sky-blue))',
         'hyundai-gold': 'hsl(var(--hyundai-gold))',
         'active-red': 'hsl(var(--active-red))',
+        'hyundai-dark-blue': '#001A41',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
@@ -55,6 +56,9 @@ const config: Config = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 0.5rem)',
         sm: 'calc(var(--radius) - 1rem)',
+      },
+      boxShadow: {
+        'glow-blue': '0 0 20px rgba(0, 170, 210, 0.5)',
       },
       keyframes: {
         'accordion-down': {

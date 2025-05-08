@@ -97,33 +97,36 @@ export default function HeroSection({
 
   return (
     <section className="relative min-h-screen flex items-center justify-start overflow-hidden" ref={containerRef}>
-      {/* Animated Backgrounds */}
-      <AnimatePresence mode="wait">
-        <motion.div 
-          key={`slide-bg-${currentSlide}`}
-          className="absolute inset-0 z-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
-          style={{ y: springY }}
-        >
-          <Image
-            src={slide.backgroundImage}
-            alt={`Slide ${currentSlide + 1}`}
-            fill
-            priority
-            className="object-cover"
-          />
+      {/* Background Container - Always present */}
+      <div className="absolute inset-0 bg-black z-0">
+        {/* Animated Backgrounds */}
+        <AnimatePresence mode="sync" initial={false}>
           <motion.div 
-            className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80"
-            style={{ 
-              backgroundColor: slide.overlayColor || 'rgba(0, 44, 95, 0.7)',
-              opacity: springOpacity 
-            }}
-          />
-        </motion.div>
-      </AnimatePresence>
+            key={`slide-bg-${currentSlide}`}
+            className="absolute inset-0 z-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2 }}
+            style={{ y: springY }}
+          >
+            <Image
+              src={slide.backgroundImage}
+              alt={`Slide ${currentSlide + 1}`}
+              fill
+              priority
+              className="object-cover"
+            />
+            <motion.div 
+              className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80"
+              style={{ 
+                backgroundColor: slide.overlayColor || 'rgba(0, 44, 95, 0.7)',
+                opacity: springOpacity 
+              }}
+            />
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
       {/* Animated Particles */}
       <Particles />
@@ -131,7 +134,7 @@ export default function HeroSection({
       {/* Content */}
       <div className="container-custom relative z-10 flex items-center">
         <div className="w-full flex justify-start -ml-12 sm:-ml-16 md:-ml-20">
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" initial={false}>
             <motion.div 
               key={`slide-content-${currentSlide}`}
               className="max-w-3xl flex flex-col gap-8 text-left justify-start"
@@ -139,7 +142,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] }}
             >
               {/* Decorative element */}
               <motion.div 

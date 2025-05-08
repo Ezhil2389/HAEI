@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Globe, MapPin, Users, Building } from 'lucide-react';
+import dynamic from 'next/dynamic';
 
 interface Location {
   id: string;
@@ -36,6 +37,16 @@ const brandColors = {
   light: '#E4EBF1' // Light variant
 };
 
+// Dynamically import the Map component to avoid SSR issues
+const MapComponent = dynamic(() => import('../ui/map-component'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-[500px] bg-gray-100 flex items-center justify-center">
+      <div className="animate-pulse text-gray-400">Loading map...</div>
+    </div>
+  ),
+});
+
 export default function GlobalPresenceSection({
   title,
   subtitle,
@@ -55,28 +66,6 @@ export default function GlobalPresenceSection({
     }
   };
 
-  const mapPinVariants = {
-    hidden: { scale: 0, opacity: 0 },
-    visible: (custom: number) => ({ 
-      scale: 1, 
-      opacity: 1,
-      transition: { 
-        delay: 0.5 + (custom * 0.1),
-        type: "spring", 
-        stiffness: 300, 
-        damping: 15 
-      }
-    }),
-    hover: { 
-      scale: 1.3,
-      transition: { duration: 0.2 }
-    },
-    tap: {
-      scale: 0.9,
-      transition: { duration: 0.1 }
-    }
-  };
-
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { 
@@ -88,21 +77,6 @@ export default function GlobalPresenceSection({
         damping: 20 
       }
     }
-  };
-
-  // Function to convert coordinates to relative position on map
-  const getPositionFromCoordinates = (coords: [number, number]): { left: string, top: string } => {
-    // Simple conversion from coordinates to CSS position
-    const [lat, lng] = coords;
-    // Normalize coordinates to a 0-100% range
-    // This is a very simplified approach, a real implementation would use proper map projection
-    const left = ((lng + 180) / 360) * 100;
-    const top = ((90 - lat) / 180) * 100;
-    
-    return {
-      left: `${left}%`,
-      top: `${top}%`
-    };
   };
 
   return (
@@ -169,74 +143,19 @@ export default function GlobalPresenceSection({
           </motion.div>
         )}
 
-        {/* Map container */}
+        {/* Interactive Map container */}
         <motion.div 
-          className="rounded-2xl bg-white shadow-lg overflow-hidden mb-10 p-4 md:p-8"
+          className="rounded-2xl bg-white shadow-lg overflow-hidden mb-10 relative z-0"
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <div className="relative">
-            {/* World map background - Using a high quality world map image */}
-            <div className="relative w-full h-[400px] md:h-[500px] bg-white overflow-hidden">
-              <Image
-                src="https://www.worldatlas.com/upload/bb/c3/32/world-political-map-3.png"
-                alt="World Map"
-                fill
-                className="object-cover"
-              />
-              
-              {/* Overlay to tone down the map colors */}
-              <div className="absolute inset-0 bg-white opacity-40"></div>
-              
-              {/* Location pins */}
-              {locations.map((location, index) => {
-                const position = getPositionFromCoordinates(location.coordinates);
-                return (
-                  <motion.div
-                    key={location.id}
-                    className="absolute cursor-pointer flex flex-col items-center"
-                    style={{
-                      left: position.left,
-                      top: position.top,
-                      transform: 'translate(-50%, -50%)',
-                      zIndex: activeLocation?.id === location.id ? 20 : 10,
-                    }}
-                    custom={index}
-                    variants={mapPinVariants}
-                    initial="hidden"
-                    animate={isInView ? "visible" : "hidden"}
-                    whileHover="hover"
-                    whileTap="tap"
-                    onClick={() => setActiveLocation(location)}
-                  >
-                    <div 
-                      className={`w-4 h-4 rounded-full transition-all duration-300 shadow-lg ${
-                        activeLocation?.id === location.id ? 'scale-150' : ''
-                      }`}
-                      style={{ 
-                        backgroundColor: activeLocation?.id === location.id ? brandColors.secondary : brandColors.primary
-                      }}
-                    ></div>
-                    <div 
-                      className={`absolute -bottom-1 w-12 h-12 rounded-full animate-ping opacity-30 ${
-                        activeLocation?.id === location.id ? 'opacity-50' : 'opacity-20'
-                      }`}
-                      style={{ backgroundColor: brandColors.primary }}
-                    ></div>
-                    <span 
-                      className={`absolute mt-6 px-2 py-1 text-xs font-medium rounded whitespace-nowrap transition-all duration-300 ${
-                        activeLocation?.id === location.id ? 'opacity-100 mt-7 bg-white shadow-md' : 'opacity-0 pointer-events-none'
-                      }`}
-                      style={{ color: brandColors.primary }}
-                    >
-                      {location.name}
-                    </span>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
+          <MapComponent 
+            locations={locations} 
+            activeLocation={activeLocation}
+            setActiveLocation={setActiveLocation}
+            brandColors={brandColors}
+          />
         </motion.div>
 
         {/* Location details */}

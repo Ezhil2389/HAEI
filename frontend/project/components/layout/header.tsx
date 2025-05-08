@@ -86,15 +86,38 @@ export default function Header() {
       )}>
         {/* Logo */}
         <Link href="/" className="shrink-0">
-          <div className="relative h-[35px] sm:h-[40px] w-[160px] sm:w-[200px] flex items-center pl-2 sm:pl-7">
-            <Image
-              src={isScrolled ? "/haei-blue.svg" : "/haei-white.svg"}
-              alt="Hyundai AutoEver India Logo"
-              width={110}
-              height={22}
-              className="object-contain"
-              priority
-            />
+          <div className="relative h-[35px] sm:h-[40px] w-[200px] sm:w-[260px] flex items-center pl-2 sm:pl-5">
+            <div className="flex items-center">
+              <Image
+                src={isScrolled ? "/haei-blue.svg" : "/haei-white.svg"}
+                alt="Hyundai AutoEver India Logo"
+                width={110}
+                height={22}
+                className="object-contain"
+                priority
+              />
+              <div 
+                className={cn(
+                  "ml-3 border-l pl-3 flex items-center h-[20px]",
+                  isScrolled ? 'border-l-gray-300' : 'border-l-white/30'
+                )}
+              >
+                <span 
+                  className={cn(
+                    "text-base sm:text-lg uppercase tracking-[0.15em] relative group",
+                    isScrolled ? 'text-gray-700' : 'text-white'
+                  )}
+                  style={{ fontWeight: 200 }}
+                >
+                  INDIA
+                  <span className="absolute bottom-0 left-0 w-full h-[2px] flex opacity-90">
+                    <span className="w-1/3 bg-[#FF9933]"></span>
+                    <span className="w-1/3 bg-white" style={{ boxShadow: '0 0 2px rgba(0,0,0,0.1)' }}></span>
+                    <span className="w-1/3 bg-[#138808]"></span>
+                  </span>
+                </span>
+              </div>
+            </div>
           </div>
         </Link>
 
